@@ -6,3 +6,4 @@ A command line interface client for jpdb
 + deckfromtext [deckID] [filepath]
 + statistics
 + logout
++ help
