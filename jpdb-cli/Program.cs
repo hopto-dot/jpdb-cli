@@ -45,6 +45,12 @@ namespace MyApp
 
             if ((args[0] == "review" || args[0] == "reviews") && args.Length == 1)
             {
+                if (loginCookie == null)
+                {
+                    printError("You must be logged in!");
+                    printError("Do 'login [username] [password]' first");
+                    enterCommand();
+                }
                 newReview.startReviews();
                 enterCommand();
                 return;
@@ -62,6 +68,12 @@ namespace MyApp
 
             if (args[0] == "statistics" && args.Length == 1)
             {
+                if (loginCookie == null)
+                {
+                    printError("You must be logged in!");
+                    printError("Do 'login [username] [password]' first");
+                    enterCommand();
+                }
                 newReview.homepage();
                 enterCommand();
             }
@@ -88,9 +100,22 @@ namespace MyApp
                 enterCommand();
             }
 
-            if (args[0] == "coverage" && args.Length == 2)
+            if (args[0] == "coverage")
             {
-                try { CoverageStats.genCovStats(args[1]); } catch { printError("Something went wrong, you may have entered an incorrect content type."); }
+                if (loginCookie == null)
+                {
+                    printError("You must be logged in first!");
+                    printError("Do 'login [username] [password]'");
+                    enterCommand();
+                }
+                
+                if (args.Length == 1)
+                {
+                    try { CoverageStats.genCovStats("all"); } catch { printError("Something went wrong, you may have entered an incorrect content type."); }
+                } else
+                {
+                    try { CoverageStats.genCovStats(args[1]); } catch { printError("Something went wrong, you may have entered an incorrect content type."); }
+                }
                 
                 enterCommand();
             }
