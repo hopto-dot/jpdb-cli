@@ -5,5 +5,6 @@ A command line interface client for jpdb
 + login [username] [password]
 + deckfromtext [deckID] [filepath]
 + statistics
++ coverage [content type]
 + logout
 + help
