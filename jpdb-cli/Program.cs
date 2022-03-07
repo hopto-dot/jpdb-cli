@@ -1,5 +1,6 @@
 ﻿using jpdb_cli.Bulk_Upload;
 using jpdb_cli.Reviews;
+using jpdb_cli.DBCoverageStats;
 using System;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            reviews newReview = new reviews();
+
             if (args.Length == 0) { Console.WriteLine("Enter a command:"); args = Console.ReadLine().Split(" "); }
             if (args[0] == "exit")
             {
@@ -37,6 +41,15 @@ namespace MyApp
                 
                 enterCommand();
             }
+            if (args[0] == "clear") { Console.Clear(); enterCommand(); }
+
+            if ((args[0] == "review" || args[0] == "reviews") && args.Length == 1)
+            {
+                newReview.startReviews();
+                enterCommand();
+                return;
+            }
+            
 
             if (args[0] == "login")
             {
@@ -44,12 +57,12 @@ namespace MyApp
                 if (args.Length != 3) { printError("'login' command takes 3 arguments! 'login [username] [password]'"); enterCommand(); }
                 Console.WriteLine();
                 Console.WriteLine("Attempting to log in...");
-                try { login(args[1], args[2]); reviews.homepage(); enterCommand(); } catch { printError("Failed to log in"); enterCommand(); }
+                try { login(args[1], args[2]); newReview.homepage(); enterCommand(); } catch { printError("Failed to log in"); enterCommand(); }
             }
 
             if (args[0] == "statistics" && args.Length == 1)
             {
-                reviews.homepage();
+                newReview.homepage();
                 enterCommand();
             }
 
@@ -62,7 +75,7 @@ namespace MyApp
                     Program.printError($"The file '{args[2]}' doesn't exist.");
                     fail = true;
                 }
-                string x = "";
+                string x = args[1];
                 if (int.TryParse(x, out int value) == false)
                 {
                     Program.printError($"'{args[1]}' isn't a valid deck id. It must be a number.");
@@ -75,11 +88,20 @@ namespace MyApp
                 enterCommand();
             }
 
+            if (args[0] == "coverage" && args.Length == 2)
+            {
+                try { CoverageStats.genCovStats(args[1]); } catch { printError("Something went wrong, you may have entered an incorrect content type."); }
+                
+                enterCommand();
+            }
+
             Console.WriteLine($"Command '{args[0]}' not recognised. Type 'help' for more information.");
             enterCommand();
         }
 
         public static Cookie? loginCookie = null;
+
+        
 
         static void login(string username, string password)
         {
@@ -166,7 +188,8 @@ namespace MyApp
                               "login [username] [password]\n" +
                               "deckfromtext [deckID] [filepath]\n" +
                               "statistics\n" +
-                              "logout");
+                              "logout\n" +
+                              "coverage [content type]");
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
