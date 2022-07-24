@@ -9,3 +9,5 @@
 + statistics - shows your word statistics
 + logout - log out of your account
 + help - shows all commands and their syntax
+
+![image](https://user-images.githubusercontent.com/66906618/180662746-dc919731-6d3b-4f88-95fe-bba1ee9bb994.png)
