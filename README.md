@@ -1,5 +1,6 @@
 # jpdb-cli
 #### A command line interface client for jpdb. Made by a「上手」programmer.
+[**How it works**](https://github.com/hopto-dot/jpdb-cli/wiki)
 
 ### Commands
 + login [username] [password] - log into your jpdb account; necessary to use other commands
