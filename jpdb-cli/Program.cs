@@ -55,8 +55,6 @@ namespace MyApp
                 enterCommand();
                 return;
             }
-            
-
             if (args[0] == "login")
             {
                 //if (args.Length == 1) {  }
@@ -65,7 +63,6 @@ namespace MyApp
                 Console.WriteLine("Attempting to log in...");
                 try { login(args[1], args[2]); newReview.homepage(); enterCommand(); } catch { printError("Failed to log in"); enterCommand(); }
             }
-
             if (args[0] == "statistics" && args.Length == 1)
             {
                 if (loginCookie == null)
@@ -77,7 +74,6 @@ namespace MyApp
                 newReview.homepage();
                 enterCommand();
             }
-
             if (args[0] == "deckfromtext")
             {
                 if (args.Length != 3) { printError("'deckfromtext' command takes 3 arguments! 'deckfromtext [deckID] [file path]'"); enterCommand(); }
@@ -99,7 +95,6 @@ namespace MyApp
                 }
                 enterCommand();
             }
-
             if (args[0] == "coverage")
             {
                 if (loginCookie == null)
@@ -125,8 +120,6 @@ namespace MyApp
         }
 
         public static Cookie? loginCookie = null;
-
-        
 
         static void login(string username, string password)
         {
